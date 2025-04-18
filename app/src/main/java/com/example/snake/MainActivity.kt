@@ -32,6 +32,12 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.home_page)
 
         val buttonStart = findViewById<Button>(R.id.btnNewGame)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
+
+        btnLogin.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         buttonStart.setOnClickListener {
             this.setContent {

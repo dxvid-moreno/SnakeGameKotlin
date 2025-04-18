@@ -1,3 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Snake</string>
+
+    //String for home_page.xml
+    <string name="MainSnake">Snake</string>
+    <string name="login">Login</string>
+    <string name="language">Language</string>
+    <string name="new_game">NEW GAME</string>
+    <string name="about_us">About Us</string>
+
+    //Strings for about_us.xml
+    <string name="back">Back</string>
+    <string name="txtAboutUs">asdfasdgasdg</string>
+
+    //Strings for mainActivity
+    <string name="score">Score: </string>
+
 </resources>

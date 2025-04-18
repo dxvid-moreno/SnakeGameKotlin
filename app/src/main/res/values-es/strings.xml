@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Snake</string>
+
+    //String for home_page.xml in Spanish
+    <string name="MainSnake">Culebrita</string>
+    <string name="login">Iniciar Sesion</string>
+    <string name="language">Idioma</string>
+    <string name="new_game">NUEVO JUEGO</string>
+    <string name="about_us">Sobre Nosotros</string>
+
+    //Strings for about_us.xml
+    <string name="back">Regresar</string>
+    <string name="txtAboutUs">asdfasdgasdgsdf</string>
+
+    //Strings for mainActivity
+    <string name="score">Puntaje: </string>
+</resources>

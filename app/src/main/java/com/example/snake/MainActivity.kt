@@ -25,7 +25,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectDragGestures
 import android.widget.Button
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.res.stringResource
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +83,7 @@ fun SnakeGame() {
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Text(
-            text = "${stringResource(R.string.score)}::${snake.size - 1}",
+            text = "SCORE: ${snake.size - 1}",
             color = Color(0xFF2F4F2F),
             modifier = Modifier.padding(top = 16.dp),
 
@@ -149,6 +148,7 @@ fun GestureControlledBoard(
     var touchStart by remember { mutableStateOf<Pair<Float, Float>?>(null) }
 
     Column(
+        
         modifier = Modifier
             .pointerInput(Unit) {
                 detectDragGestures(

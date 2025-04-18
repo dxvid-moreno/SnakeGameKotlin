@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C1F0A0"
+    android:padding="24dp">
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="LOGIN"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentTop="true"
+        android:paddingHorizontal="20dp"
+        android:fontFamily="@font/irish_grover"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/iconLanguage"
+        android:layout_width="130dp"
+        android:layout_height="65dp"
+        android:text="Language"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/irish_grover"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        />
+
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SNAKE"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:textColor="#2B3A1B"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:fontFamily="@font/irish_grover"/>
+
+
+    <Button
+        android:id="@+id/btnNewGame"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="NEW GAME"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/txtTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/irish_grover"
+        android:textSize="20sp"/>
+
+
+    <Button
+        android:id="@+id/btnAbout"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="ABOUT US"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/btnNewGame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/irish_grover"
+        android:textSize="20sp"/>
+
+
+</RelativeLayout>

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Snake" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Tema personalizado basado en AppCompat -->
+    <style name="Theme.Snake" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Colores personalizados opcionales -->
+        <item name="colorPrimary">@android:color/holo_green_dark</item>
+        <item name="colorPrimaryDark">@android:color/holo_green_light</item>
+        <item name="colorAccent">@android:color/holo_red_dark</item>
+    </style>
+
 </resources>

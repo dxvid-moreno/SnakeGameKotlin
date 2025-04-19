@@ -9,15 +9,12 @@
     tools:context=".LoginActivity">
 
     <!-- Fondo verde superior -->
-
-    <!-- Título SNAKE -->
     <FrameLayout
         android:id="@+id/dividerTitle"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:background="#28561d"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -31,6 +28,7 @@
             app:tint="#FFFFFF" />
     </FrameLayout>
 
+    <!-- Título SNAKE -->
     <TextView
         android:id="@+id/txtTitle2"
         android:layout_width="wrap_content"
@@ -45,117 +43,130 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Título "Acceder" -->
+    <!-- Título "Log in" -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Acceder"
-        android:textSize="48sp"
-        android:textColor="#2B3A1B"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/irish_grover"
-        app:layout_constraintTop_toBottomOf="@id/dividerTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Log in"
+        android:textColor="#2B3A1B"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dividerTitle" />
 
     <!-- Campo Correo -->
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/emailTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Correo"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp" />
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <!-- Campo Clave -->
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/passwordTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Clave"
+        android:layout_marginTop="12dp"
+        android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/editTextText"
-        app:layout_constraintStart_toStartOf="@id/editTextText"
-        app:layout_constraintEnd_toEndOf="@id/editTextText"
-        android:layout_marginTop="12dp" />
+        app:layout_constraintEnd_toEndOf="@id/emailTxt"
+        app:layout_constraintStart_toStartOf="@id/emailTxt"
+        app:layout_constraintTop_toBottomOf="@id/emailTxt" />
 
     <!-- Botón Ingresar -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/logInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingresar"
-        app:layout_constraintTop_toBottomOf="@id/editTextText2"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="LOG IN"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordTxt" />
 
     <!-- ¿Olvidó su clave? -->
-
-    <!-- Línea divisoria -->
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="¿Olvidó su clave?"
-        app:layout_constraintStart_toStartOf="@id/button"
-        app:layout_constraintTop_toBottomOf="@id/button" />
+        android:text="Lost password?"
+        app:layout_constraintStart_toStartOf="@id/logInButton"
+        app:layout_constraintTop_toBottomOf="@id/logInButton" />
 
+    <!-- Línea divisoria -->
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@id/textView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto "Acceder con google" -->
+    <!-- Texto "Sign in with" -->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Acceder con Google"
+        android:layout_marginTop="24dp"
+        android:text="Sign in with"
         android:textColor="#2B3A1B"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
-    <!-- Botón de Google -->
-
-    <!-- Registrarse -->
-
+    <!-- Botón Google -->
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="61dp"
         android:layout_height="67dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Google login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="8dp"
         app:srcCompat="@drawable/googleicon" />
 
+    <!-- Botón Facebook -->
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="61dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Facebook login"
+        app:layout_constraintTop_toBottomOf="@id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        app:srcCompat="@drawable/facebookicon" />
+
+    <!-- "Sign in" texto para ir al registro -->
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Registrarse"
+        android:layout_marginTop="48dp"
+        android:text="Sign in"
+        android:onClick="openSignIn"
+        android:textColor="#2B3A1B"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageButton" />
 

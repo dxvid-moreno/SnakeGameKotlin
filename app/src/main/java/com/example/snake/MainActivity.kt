@@ -25,6 +25,11 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectDragGestures
 import android.widget.Button
 import androidx.compose.ui.text.font.FontFamily
+import com.google.firebase.analytics.FirebaseAnalytics
+
+enum class ProviderType{
+    BASIC
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,16 +39,17 @@ class MainActivity : ComponentActivity() {
         val buttonStart = findViewById<Button>(R.id.btnNewGame)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
+        // Login screen on click
         btnLogin.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
+        // Execution of the game
         buttonStart.setOnClickListener {
             this.setContent {
                 SnakeGame()
             }
-        }
     }
 }
 
@@ -205,4 +211,5 @@ fun GestureControlledBoard(
 
 fun randomFood(boardSize: Int): Pair<Int, Int> {
     return Pair(Random.nextInt(boardSize), Random.nextInt(boardSize))
+}
 }

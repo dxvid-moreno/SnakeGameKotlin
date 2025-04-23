@@ -91,6 +91,31 @@
         android:fontFamily="@font/irish_grover"
         android:textSize="20sp" />
 
-    <!-- Texto opcional (puedes ajustar si quieres moverlo también) -->
+    <!-- Botón Log Out -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="LOG OUT"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/btnAbout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/irish_grover"
+        android:textSize="20sp" />
+
+    <!-- Mensaje de bienvenida -->
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/btnLogout"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

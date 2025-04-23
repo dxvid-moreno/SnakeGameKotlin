@@ -131,32 +131,21 @@
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <!-- Botón Google -->
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="61dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Google login"
-        app:layout_constraintTop_toBottomOf="@id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/googleicon" />
 
-    <!-- Botón Facebook -->
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="61dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Facebook login"
-        app:layout_constraintTop_toBottomOf="@id/textView5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="8dp"
-        app:srcCompat="@drawable/facebookicon" />
 
     <!-- "Sign in" texto para ir al registro -->
+
+    <ImageButton
+        android:id="@+id/googleSignInButton"
+        android:layout_width="61dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
+        android:contentDescription="Google login"
+        app:layout_constraintTop_toBottomOf="@id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/googleicon" />
+
     <TextView
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
@@ -167,7 +156,6 @@
         android:textColor="#2B3A1B"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageButton" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

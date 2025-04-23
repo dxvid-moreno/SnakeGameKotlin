@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -24,34 +25,71 @@ import kotlin.random.Random
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectDragGestures
 import android.widget.Button
+import android.widget.TextView
 import androidx.compose.ui.text.font.FontFamily
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
 
 enum class ProviderType{
-    BASIC
+    BASIC,
+    GOOGLE,
 }
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var tvWelcome: TextView
+    private lateinit var btnNewGame: Button
+    private lateinit var btnLogout: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
 
-        val buttonStart = findViewById<Button>(R.id.btnNewGame)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
+        auth = FirebaseAuth.getInstance()
+        tvWelcome = findViewById(R.id.tvWelcome)
+        btnNewGame = findViewById(R.id.btnNewGame)
+        btnLogout = findViewById(R.id.btnLogout)
 
-        // Login screen on click
-        btnLogin.setOnClickListener{
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            val email = currentUser.email ?: "Usuario"
+            tvWelcome.text = "Bienvenido, $email"
+            tvWelcome.visibility = View.VISIBLE
+            btnNewGame.isEnabled = true // Habilitar el botón de jugar
+        } else {
+            tvWelcome.visibility = View.GONE
+            btnNewGame.isEnabled = false // Deshabilitar el botón de jugar
+        }
+
+        // Evento de inicio de sesión
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
+        btnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        // Execution of the game
-        buttonStart.setOnClickListener {
-            this.setContent {
-                SnakeGame()
+        // Evento de cierre de sesión
+        btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish() // Finalizar la actividad actual para que el usuario no pueda volver con el botón atrás
+        }
+
+        // Evento para empezar el juego
+        btnNewGame.setOnClickListener {
+            if (auth.currentUser != null) {
+                // Lógica para iniciar el juego
+                this.setContent {
+                    SnakeGame()
+                }
             }
+        }
     }
-}
+
+
+
 
 @Composable
 fun SnakeGame() {

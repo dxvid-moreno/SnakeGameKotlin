@@ -28,6 +28,7 @@ import androidx.compose.material3.Icon
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.content.Intent
+import kotlin.jvm.java
 
 
 class MainActivity : ComponentActivity() {
@@ -53,6 +54,11 @@ class MainActivity : ComponentActivity() {
         super.onPause()
 
     }
+
+    override fun onRestart() {
+        super.onRestart()
+
+    }
 }
 
 @Composable
@@ -61,16 +67,31 @@ fun SnakeGame() {
     var snake by remember { mutableStateOf(listOf(Pair(8, 8))) }
     var direction by remember { mutableStateOf(Pair(1, 0)) }
     var food by remember { mutableStateOf(randomFood(boardSize)) }
+    var gameOver by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        while (true) {
+    fun resetGame() {
+        snake = listOf(Pair(8, 8))
+        direction = Pair(1, 0)
+        food = randomFood(boardSize)
+        gameOver = false
+    }
+
+    LaunchedEffect(gameOver) {
+        if (gameOver) return@LaunchedEffect
+        while (!gameOver) {
             delay(200)
 
             val head = snake.first()
             val newHead = Pair(
-                (head.first + direction.first + boardSize) % boardSize,
-                (head.second + direction.second + boardSize) % boardSize
+                head.first + direction.first,
+                head.second + direction.second
             )
+
+
+            if (snake.contains(newHead)) {
+                gameOver = true
+                break
+            }
 
             val ateFood = newHead == food
             snake = listOf(newHead) + if (ateFood) snake else snake.dropLast(1)
@@ -80,6 +101,12 @@ fun SnakeGame() {
                     food = randomFood(boardSize)
                 } while (snake.contains(food))
             }
+
+            if (newHead.first !in 0 until boardSize || newHead.second !in 0 until boardSize) {
+                gameOver = true
+                break
+            }
+
         }
     }
 
@@ -110,6 +137,7 @@ fun SnakeGame() {
                 boardSize = boardSize,
                 snake = snake,
                 food = food,
+                currentDirection = direction,
                 onDirectionChange = { newDir ->
                     if (newDir.first + direction.first != 0 || newDir.second + direction.second != 0) {
                         direction = newDir
@@ -117,6 +145,10 @@ fun SnakeGame() {
                 }
             )
         }
+    }
+
+    if (gameOver) {
+        GameOverDialog(onRestart = {resetGame()})
     }
 }
 
@@ -153,7 +185,8 @@ fun GestureControlledBoard(
     boardSize: Int,
     snake: List<Pair<Int, Int>>,
     food: Pair<Int, Int>,
-    onDirectionChange: (Pair<Int, Int>) -> Unit
+    onDirectionChange: (Pair<Int, Int>) -> Unit,
+    currentDirection: Pair<Int, Int>
 ) {
     val cellSize = 20.dp
     var touchStart by remember { mutableStateOf<Pair<Float, Float>?>(null) }
@@ -177,9 +210,9 @@ fun GestureControlledBoard(
                         val absDy = kotlin.math.abs(dy)
 
                         if (absDx > absDy) {
-                            onDirectionChange(if (dx > 0) Pair(1, 0) else Pair(-1, 0))
+                            onDirectionChange(if (dx > 0 && currentDirection!=Pair(-1, 0)) Pair(1, 0) else Pair(-1, 0))
                         } else {
-                            onDirectionChange(if (dy > 0) Pair(0, 1) else Pair(0, -1))
+                            onDirectionChange(if (dy > 0 && currentDirection!=Pair(0, -1)) Pair(0, 1) else Pair(0, -1))
                         }
                     }
                 )
@@ -215,4 +248,21 @@ fun GestureControlledBoard(
 
 fun randomFood(boardSize: Int): Pair<Int, Int> {
     return Pair(Random.nextInt(boardSize), Random.nextInt(boardSize))
+}
+
+@Composable
+fun GameOverDialog(onRestart: () -> Unit) {
+    androidx.compose.material3.AlertDialog(
+        onDismissRequest = { /* No hacer nada al cerrar */ },
+        title = { Text("Perdiste") },
+        text = { Text("¡Has perdido! Intenta nuevamente.") },
+        confirmButton = {
+            Button(onClick = {
+                onRestart()
+            }) {
+                Text("Volver a jugar")
+            }
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
 }

@@ -1,4 +1,4 @@
-package com.example.snakegame.util
+package com.example.snake
 
 import android.util.Patterns
 

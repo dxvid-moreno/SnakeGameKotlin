@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var tvWelcome: TextView
     private lateinit var btnNewGame: Button
     private lateinit var btnLogout: Button
+    private lateinit var btnLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,37 +44,46 @@ class MainActivity : ComponentActivity() {
         tvWelcome = findViewById(R.id.tvWelcome)
         btnNewGame = findViewById(R.id.btnNewGame)
         btnLogout = findViewById(R.id.btnLogout)
+        btnLogin = findViewById(R.id.btnLogin)
 
         val currentUser = auth.currentUser
+
         if (currentUser != null) {
+            // Usuario autenticado
             val email = currentUser.email ?: "Usuario"
             tvWelcome.text = "Bienvenido, $email"
             tvWelcome.visibility = View.VISIBLE
-            btnNewGame.isEnabled = true // Habilitar el botón de jugar
+
+            btnNewGame.isEnabled = true
+            btnNewGame.visibility = View.VISIBLE
+
+            btnLogout.visibility = View.VISIBLE
+            btnLogin.visibility = View.GONE
         } else {
+            // Usuario no autenticado
             tvWelcome.visibility = View.GONE
-            btnNewGame.isEnabled = false // Deshabilitar el botón de jugar
+
+            btnNewGame.isEnabled = false
+            btnNewGame.visibility = View.GONE
+
+            btnLogout.visibility = View.GONE
+            btnLogin.visibility = View.VISIBLE
         }
 
-        // Evento de inicio de sesión
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
         btnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        // Evento de cierre de sesión
         btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+            auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish() // Finalizar la actividad actual para que el usuario no pueda volver con el botón atrás
+            finish()
         }
 
-        // Evento para empezar el juego
         btnNewGame.setOnClickListener {
             if (auth.currentUser != null) {
-                // Lógica para iniciar el juego
                 this.setContent {
                     SnakeGame()
                 }
@@ -82,9 +92,7 @@ class MainActivity : ComponentActivity() {
     }
 
 
-
-
-@Composable
+    @Composable
 fun SnakeGame() {
     val boardSize = 16
     var snake by remember { mutableStateOf(listOf(Pair(8, 8))) }

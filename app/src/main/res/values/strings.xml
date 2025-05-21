@@ -1,13 +1,33 @@
 <resources>
+    <!-- App -->
     <string name="app_name">Snake</string>
+
+    <!-- SignInActivity -->
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="invalid_password">Password must be more than 5 characters</string>
+    <string name="login_failed">Login failed</string>
+
+    <string name="login">Login</string>
+    <string name="lost_password">Forgot your password?</string>
+    <string name="new_game">New Game</string>
+    <string name="logout">Log out</string>
+
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_invalid_password">Password must be at least 6 characters</string>
+
+    <string name="error_basic_login">Login error: %1$s</string>
+    <string name="reset_email_sent">Recovery email sent</string>
+    <string name="error_reset_email">Failed to send email: %1$s</string>
+    <string name="error_google_account">Error retrieving Google account: %1$s</string>
+    <string name="error_google_login">Google sign-in error: %1$s</string>
+    <string name="error_default">An unexpected error occurred</string>
+
     <string name="default_web_client_id">your-web-client-id.apps.googleusercontent.com</string>
+    <string name="error_no_id_token">No authentication token received</string>
 </resources>

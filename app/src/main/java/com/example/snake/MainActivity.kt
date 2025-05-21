@@ -2,19 +2,13 @@ package com.example.snake
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +20,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectDragGestures
 import android.widget.Button
 import android.widget.TextView
-import androidx.compose.ui.text.font.FontFamily
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
+import kotlin.math.abs
 
 enum class ProviderType{
     BASIC,
@@ -207,8 +200,8 @@ fun GestureControlledBoard(
                     },
                     onDrag = { change, dragAmount ->
                         val (dx, dy) = dragAmount
-                        val absDx = kotlin.math.abs(dx)
-                        val absDy = kotlin.math.abs(dy)
+                        val absDx = abs(dx)
+                        val absDy = abs(dy)
 
                         if (absDx > absDy) {
                             onDirectionChange(if (dx > 0) Pair(1, 0) else Pair(-1, 0))

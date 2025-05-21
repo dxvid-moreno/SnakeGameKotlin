@@ -4,12 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.*
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.*
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account.idToken!!)
+        } catch (e: ApiException) {
+            Toast.makeText(this, "Google sign-in failed: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +36,18 @@ class SignInActivity : AppCompatActivity() {
         val createAccountButton = findViewById<Button>(R.id.createAccountButton)
         createAccountButton.setOnClickListener {
             createAccount()
+        }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        val googleButton = findViewById<ImageButton>(R.id.googleSignUpButton)
+        googleButton.setOnClickListener {
+            signInWithGoogle()
         }
     }
 
@@ -43,13 +71,11 @@ class SignInActivity : AppCompatActivity() {
             return
         }
 
-        // Llama a Firebase Auth para crear la cuenta
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Cuenta creada exitosamente", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))  // Redirige a MainActivity
-                    finish()  // Cierra la actividad actual
+                    goToMainActivity(email, ProviderType.BASIC)
                 } else {
                     val error = task.exception?.message ?: "Error al crear la cuenta"
                     Toast.makeText(this, error, Toast.LENGTH_LONG).show()
@@ -57,14 +83,45 @@ class SignInActivity : AppCompatActivity() {
             }
     }
 
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
+    }
 
-    fun BackToLogin(view: View) {
-        val intent = Intent(this, LoginActivity::class.java)
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val isNewUser = task.result?.additionalUserInfo?.isNewUser == true
+                    val email = auth.currentUser?.email ?: "unknown"
+
+                    if (isNewUser) {
+                        Toast.makeText(this, "Cuenta Google registrada correctamente", Toast.LENGTH_SHORT).show()
+                        goToMainActivity(email, ProviderType.GOOGLE)
+                    } else {
+                        // Usuario ya registrado, cerrar sesión y mostrar error
+                        auth.signOut()
+                        googleSignInClient.signOut()
+                        Toast.makeText(this, "Esta cuenta ya existe. Por favor inicia sesión.", Toast.LENGTH_LONG).show()
+                    }
+
+                } else {
+                    Toast.makeText(this, "Falló la autenticación con Google", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun goToMainActivity(email: String, provider: ProviderType) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("email", email)
+        intent.putExtra("provider", provider.name)
         startActivity(intent)
         finish()
     }
+
+    fun BackToLogin(view: View) {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
 }
-
-
-
-

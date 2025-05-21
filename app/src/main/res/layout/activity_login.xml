@@ -45,7 +45,7 @@
 
     <!-- Título "Log in" -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -69,7 +69,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
     <!-- Campo Clave -->
     <EditText
@@ -94,15 +94,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordTxt" />
 
-    <!-- ¿Olvidó su clave? -->
-    <TextView
-        android:id="@+id/textView3"
+    <!-- Lost password? + Sign up juntos -->
+    <LinearLayout
+        android:id="@+id/passwordSignUpLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Lost password?"
-        app:layout_constraintStart_toStartOf="@id/logInButton"
-        app:layout_constraintTop_toBottomOf="@id/logInButton" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/logInButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/lostPasswordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lost password?"
+            android:textColor="#2B3A1B" />
+
+        <TextView
+            android:id="@+id/signUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Sign up"
+            android:textColor="#2B3A1B"
+            android:textStyle="bold"
+            android:onClick="openSignIn" />
+    </LinearLayout>
 
     <!-- Línea divisoria -->
     <View
@@ -113,49 +132,32 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:layout_constraintTop_toBottomOf="@id/passwordSignUpLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto "Sign in with" -->
+    <!-- Texto "Log in with" -->
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textLoginWith"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Sign in with"
+        android:text="Log in with"
         android:textColor="#2B3A1B"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <!-- Botón Google -->
-
-
-    <!-- "Sign in" texto para ir al registro -->
-
     <ImageButton
         android:id="@+id/googleSignInButton"
         android:layout_width="61dp"
         android:layout_height="67dp"
         android:layout_marginTop="28dp"
         android:contentDescription="Google login"
-        app:layout_constraintTop_toBottomOf="@id/textView5"
+        app:layout_constraintTop_toBottomOf="@id/textLoginWith"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/googleicon" />
-
-    <TextView
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Sign in"
-        android:onClick="openSignIn"
-        android:textColor="#2B3A1B"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

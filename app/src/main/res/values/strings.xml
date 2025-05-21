@@ -10,6 +10,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">Welcome!</string>
     <string name="invalid_username">Invalid username</string>
+    <string name="new_google_user_registered">¡Bienvenido! Cuenta de Google registrada exitosamente</string>
     <string name="invalid_password">Password must be more than 5 characters</string>
     <string name="login_failed">Login failed</string>
 
@@ -28,6 +29,8 @@
     <string name="error_google_login">Google sign-in error: %1$s</string>
     <string name="error_default">An unexpected error occurred</string>
 
-    <string name="default_web_client_id">your-web-client-id.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">422114701306-e70rh8ojjspkm9q6p1o2gll4s533qo0a.apps.googleusercontent.com</string>
     <string name="error_no_id_token">No authentication token received</string>
+
+
 </resources>

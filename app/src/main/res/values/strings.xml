@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
     <string name="app_name">Snake</string>
 
-    //String for home_page.xml
-    <string name="MainSnake">Snake</string>
+    <!-- SignInActivity -->
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="new_google_user_registered">¡Bienvenido! Cuenta de Google registrada exitosamente</string>
+    <string name="invalid_password">Password must be more than 5 characters</string>
+    <string name="login_failed">Login failed</string>
+
     <string name="login">Login</string>
-    <string name="language">Language</string>
-    <string name="new_game">NEW GAME</string>
-    <string name="about_us">About Us</string>
+    <string name="lost_password">Forgot your password?</string>
+    <string name="new_game">New Game</string>
+    <string name="logout">Log out</string>
 
-    //Strings for about_us.xml
-    <string name="back">Back</string>
-    <string name="txtAboutUs">asdfasdgasdg</string>
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_invalid_password">Password must be at least 6 characters</string>
 
-    //Strings for mainActivity
+    <string name="error_basic_login">Login error: %1$s</string>
+    <string name="reset_email_sent">Recovery email sent</string>
+    <string name="error_reset_email">Failed to send email: %1$s</string>
+    <string name="error_google_account">Error retrieving Google account: %1$s</string>
+    <string name="error_google_login">Google sign-in error: %1$s</string>
+    <string name="error_default">An unexpected error occurred</string>
+
+    <string name="default_web_client_id">422114701306-e70rh8ojjspkm9q6p1o2gll4s533qo0a.apps.googleusercontent.com</string>
+    <string name="error_no_id_token">No authentication token received</string>
     <string name="score">Score: </string>
 
 </resources>

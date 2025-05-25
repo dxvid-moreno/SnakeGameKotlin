@@ -1,6 +1,7 @@
 package com.example.snake
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -30,8 +31,23 @@ import android.view.MotionEvent
 import android.content.Intent
 import kotlin.jvm.java
 
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import kotlin.math.abs
+
+enum class ProviderType{
+    BASIC,
+    GOOGLE,
+}
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var tvWelcome: TextView
+    private lateinit var btnNewGame: Button
+    private lateinit var btnLogout: Button
+    private lateinit var btnLogin: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
@@ -42,10 +58,53 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         val buttonStart = findViewById<Button>(R.id.btnNewGame)
+        auth = FirebaseAuth.getInstance()
+        tvWelcome = findViewById(R.id.tvWelcome)
+        btnNewGame = findViewById(R.id.btnNewGame)
+        btnLogout = findViewById(R.id.btnLogout)
+        btnLogin = findViewById(R.id.btnLogin)
 
-        buttonStart.setOnClickListener {
-            this.setContent {
-                SnakeGame()
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            // Usuario autenticado
+            val email = currentUser.email ?: "Usuario"
+            tvWelcome.text = "Bienvenido, $email"
+            tvWelcome.visibility = View.VISIBLE
+
+            btnNewGame.isEnabled = true
+            btnNewGame.visibility = View.VISIBLE
+
+            btnLogout.visibility = View.VISIBLE
+            btnLogin.visibility = View.GONE
+        } else {
+            // Usuario no autenticado
+            tvWelcome.visibility = View.GONE
+
+            btnNewGame.isEnabled = false
+            btnNewGame.visibility = View.GONE
+
+            btnLogout.visibility = View.GONE
+            btnLogin.visibility = View.VISIBLE
+        }
+
+        btnLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnLogout.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        btnNewGame.setOnClickListener {
+            if (auth.currentUser != null) {
+                this.setContent {
+                    SnakeGame()
+                }
             }
         }
     }
@@ -61,7 +120,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
+
+    @Composable
 fun SnakeGame() {
     val boardSize = 16
     var snake by remember { mutableStateOf(listOf(Pair(8, 8))) }
@@ -206,8 +266,8 @@ fun GestureControlledBoard(
                     },
                     onDrag = { change, dragAmount ->
                         val (dx, dy) = dragAmount
-                        val absDx = kotlin.math.abs(dx)
-                        val absDy = kotlin.math.abs(dy)
+                        val absDx = abs(dx)
+                        val absDy = abs(dy)
 
                         if (absDx > absDy) {
                             onDirectionChange(if (dx > 0 && currentDirection!=Pair(-1, 0)) Pair(1, 0) else Pair(-1, 0))

@@ -23,17 +23,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicializa FirebaseAuth
+        // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
-        // Configura Google Sign-In
+        // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Prepara el launcher moderno para el resultado del Sign-In
+        // Prepare modern launcher for Sign-In result
         googleSignInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -48,13 +48,13 @@ class LoginActivity : AppCompatActivity() {
                     showToast(getString(R.string.error_default))
                 }
             } catch (e: ApiException) {
-                Log.w("Login", "Google sign in failed", e)
+                Log.w(getString(R.string.log_tag_login), getString(R.string.google_signin_failed), e)
                 showToast(getString(R.string.error_default))
             }
         }
 
-        // Evento de analytics
-        FirebaseAnalytics.getInstance(this).logEvent("login_screen_shown", Bundle())
+        // Analytics event
+        FirebaseAnalytics.getInstance(this).logEvent(getString(R.string.event_login_screen_shown), Bundle())
 
         setupUI()
     }
@@ -100,6 +100,12 @@ class LoginActivity : AppCompatActivity() {
             val signInIntent = googleSignInClient.signInIntent
             googleSignInLauncher.launch(signInIntent)
         }
+
+        val signUpButton = findViewById<TextView>(R.id.signUpButton)
+        signUpButton.setOnClickListener {
+            openSignIn(it)
+        }
+
     }
 
     private fun firebaseAuthWithGoogle(idToken: String, email: String) {
@@ -111,15 +117,15 @@ class LoginActivity : AppCompatActivity() {
                     val isNewUser = task.result?.additionalUserInfo?.isNewUser == true
 
                     if (isNewUser) {
-                        Log.d("Login", "Nuevo usuario registrado con Google: $email")
+                        Log.d(getString(R.string.log_tag_login), getString(R.string.new_user_logged_in_google, email))
                         showToast(getString(R.string.new_google_user_registered))
                     } else {
-                        Log.d("Login", "Usuario existente ingresó con Google: $email")
+                        Log.d(getString(R.string.log_tag_login), getString(R.string.existing_user_logged_in_google, email))
                     }
 
                     navigateHome(email, ProviderType.GOOGLE)
                 } else {
-                    Log.w("Login", "signInWithCredential:failure", task.exception)
+                    Log.w(getString(R.string.log_tag_login), "signInWithCredential:failure", task.exception)
                     showToast(getString(R.string.error_default))
                 }
             }
@@ -141,5 +147,10 @@ class LoginActivity : AppCompatActivity() {
     fun openSignIn(view: View) {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
+    }
+
+    fun backToHome(view: View) {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

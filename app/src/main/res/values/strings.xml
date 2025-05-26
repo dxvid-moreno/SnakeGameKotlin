@@ -4,34 +4,93 @@
     <string name="app_name">Snake</string>
 
     <!-- SignInActivity -->
-    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_sign_in">Sign In</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">Welcome!</string>
-    <string name="invalid_username">Invalid username</string>
-    <string name="new_google_user_registered">¡Bienvenido! Cuenta de Google registrada exitosamente</string>
-    <string name="invalid_password">Password must be more than 5 characters</string>
+    <string name="invalid_username">Invalid email</string>
+    <string name="invalid_password">Password must be at least 6 characters</string>
+    <string name="new_google_user_registered">Welcome! Google account registered successfully</string>
     <string name="login_failed">Login failed</string>
 
+    <!-- LoginActivity -->
     <string name="login">Login</string>
-    <string name="lost_password">Forgot your password?</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="go_to_sign_up">Go to Sign Up</string>
+
+    <!-- MainActivity -->
     <string name="new_game">New Game</string>
     <string name="logout">Log out</string>
+    <string name="score">Score: </string>
+    <string name="back">Back</string>
+    <string name="language">Language</string>
+    <string name="about_us">About Us</string>
+    <string name="txt_about_us">This is the Snake game created by our team.</string>
+    <string name="main_snake">Snake</string>
 
+    <!-- Errors and messages -->
     <string name="error_invalid_email">Invalid email</string>
     <string name="error_invalid_password">Password must be at least 6 characters</string>
-
     <string name="error_basic_login">Login error: %1$s</string>
     <string name="reset_email_sent">Recovery email sent</string>
     <string name="error_reset_email">Failed to send email: %1$s</string>
     <string name="error_google_account">Error retrieving Google account: %1$s</string>
     <string name="error_google_login">Google sign-in error: %1$s</string>
     <string name="error_default">An unexpected error occurred</string>
-
-    <string name="default_web_client_id">422114701306-e70rh8ojjspkm9q6p1o2gll4s533qo0a.apps.googleusercontent.com</string>
     <string name="error_no_id_token">No authentication token received</string>
-    <string name="score">Score: </string>
 
+    <string name="game_over_title">Game Over</string>
+    <string name="game_over_message">You lost! Sorry, keep improving</string>
+    <string name="play_again">Play Again</string>
+    <string name="return_to_main">Return</string>
+
+
+    <string name="log_tag_login">Login</string>
+    <string name="event_login_screen_shown">login_screen_shown</string>
+    <string name="google_signin_failed">Google sign-in failed</string>
+    <string name="new_user_logged_in_google">New user registered via Google: %1$s</string>
+    <string name="existing_user_logged_in_google">Existing user logged in via Google: %1$s</string>
+
+    <string name="error_empty_fields">Please fill in all fields</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_password_length">Password must be at least 6 characters</string>
+    <string name="account_created_success">Account successfully created</string>
+    <string name="account_creation_failed">Failed to create account</string>
+    <string name="google_sign_in_failed">Google sign-in failed</string>
+    <string name="google_account_registered">Google account successfully registered</string>
+    <string name="google_account_exists">This account already exists. Please log in.</string>
+    <string name="google_auth_failed">Google authentication failed</string>
+
+    <string name="txtAboutUs">We are two friends, Juan and Daniel, who decided to create this game just for fun. We hope you enjoy playing it as much as we enjoyed making it!</string>
+    <!-- Firebase -->
+    <string name="default_web_client_id">422114701306-e70rh8ojjspkm9q6p1o2gll4s533qo0a.apps.googleusercontent.com</string>
+
+    <!-- General -->
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="log_in">LOG IN</string>
+    <string name="sign_up">Sign up</string>
+    <string name="lost_password">Lost password?</string>
+    <string name="log_in_with">Log in with</string>
+    <string name="google_login_desc">Google login</string>
+    <string name="create_account">Let\'s create your account</string>
+    <string name="back_button">Back</string>
+
+    <!-- Existing strings -->
+    <string name="sign_up_button">Sign Up</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="login_redirect">Log In</string>
+
+    <!-- 🔧 Strings that were causing errors -->
+    <string name="sign_up_subtitle">Create an account to play</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="google_sign_up_desc">Sign up with Google</string>
+    <string name="snake_logo">Snake logo</string>
+
+
+    <!-- Titles -->
+    <string name="title_login">Log in</string>
+    <string name="title_sign_up">Sign up</string>
 </resources>

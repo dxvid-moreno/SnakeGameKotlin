@@ -25,7 +25,8 @@
             android:backgroundTint="#28561d"
             android:onClick="BackToHome"
             app:srcCompat="@drawable/returnicon"
-            app:tint="#FFFFFF" />
+            app:tint="#FFFFFF"
+            android:contentDescription="@string/return_to_main" />
     </FrameLayout>
 
     <!-- Título SNAKE -->
@@ -33,7 +34,7 @@
         android:id="@+id/txtTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SNAKE"
+        android:text="@string/main_snake"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         android:textStyle="bold"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/irish_grover"
-        android:text="Log in"
+        android:text="@string/login"
         android:textColor="#2B3A1B"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +66,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:hint="Email"
+        android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +78,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Password"
+        android:hint="@string/prompt_password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/emailTxt"
         app:layout_constraintStart_toStartOf="@id/emailTxt"
@@ -89,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="LOG IN"
+        android:text="@string/action_sign_in_short"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordTxt" />
@@ -109,7 +110,7 @@
             android:id="@+id/lostPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lost password?"
+            android:text="@string/forgot_password"
             android:textColor="#2B3A1B" />
 
         <TextView
@@ -117,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Sign up"
+            android:text="@string/go_to_sign_up"
             android:textColor="#2B3A1B"
             android:textStyle="bold"
             android:onClick="openSignIn" />
@@ -142,7 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Log in with"
+        android:text="@string/action_sign_in"
         android:textColor="#2B3A1B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +155,7 @@
         android:layout_width="61dp"
         android:layout_height="67dp"
         android:layout_marginTop="28dp"
-        android:contentDescription="Google login"
+        android:contentDescription="@string/action_sign_in"
         app:layout_constraintTop_toBottomOf="@id/textLoginWith"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

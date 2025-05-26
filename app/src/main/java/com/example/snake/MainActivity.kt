@@ -1,5 +1,6 @@
 package com.example.snake
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
@@ -32,7 +33,9 @@ import android.content.Intent
 import kotlin.jvm.java
 
 import android.widget.TextView
+import androidx.compose.ui.platform.LocalContext
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Locale
 import kotlin.math.abs
 
 enum class ProviderType{
@@ -47,12 +50,45 @@ class MainActivity : ComponentActivity() {
     private lateinit var btnNewGame: Button
     private lateinit var btnLogout: Button
     private lateinit var btnLogin: Button
+    private lateinit var btnAbout: Button
+    private lateinit var btnChangeLanguage: Button
+
+    override fun attachBaseContext(newBase: Context) {
+        val sharedPreferences = newBase.getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val lang = sharedPreferences.getString("language", "en") ?: "en"
+        val context = updateBaseContextLocale(newBase, lang)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
 
+        val btnChangeLanguage = findViewById<Button>(R.id.btnChangeLanguage)
+        btnChangeLanguage.setOnClickListener {
+            val currentLanguage = getCurrentLanguage()
+            val newLanguage = if (currentLanguage == "es") "en" else "es"
+            saveLanguage(newLanguage)
+            recreate()
+        }
+    }
 
+    private fun saveLanguage(languageCode: String) {
+        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        preferences.edit().putString("language", languageCode).apply()
+    }
+
+    private fun getCurrentLanguage(): String {
+        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        return preferences.getString("language", "en") ?: "en"
+    }
+
+    private fun updateBaseContextLocale(context: Context, language: String): Context {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = context.resources.configuration
+        config.setLocale(locale)
+        return context.createConfigurationContext(config)
     }
 
     override fun onStart() {
@@ -63,13 +99,14 @@ class MainActivity : ComponentActivity() {
         btnNewGame = findViewById(R.id.btnNewGame)
         btnLogout = findViewById(R.id.btnLogout)
         btnLogin = findViewById(R.id.btnLogin)
+        btnAbout = findViewById(R.id.btnAbout)
 
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
             // Usuario autenticado
-            val email = currentUser.email ?: "Usuario"
-            tvWelcome.text = "Bienvenido, $email"
+            val email = currentUser.email ?: "User"
+            tvWelcome.text = "Welcome, $email"
             tvWelcome.visibility = View.VISIBLE
 
             btnNewGame.isEnabled = true
@@ -92,6 +129,15 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        btnAbout.setOnClickListener {
+            setContentView(R.layout.about_us)
+            val btnBack = findViewById<Button>(R.id.btnBack)
+            btnBack.setOnClickListener {
+                recreate()
+            }
+        }
+
 
         btnLogout.setOnClickListener {
             auth.signOut()
@@ -120,9 +166,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-    @Composable
+@Composable
 fun SnakeGame() {
+    val context = LocalContext.current
     val boardSize = 16
     var snake by remember { mutableStateOf(listOf(Pair(8, 8))) }
     var direction by remember { mutableStateOf(Pair(1, 0)) }
@@ -136,37 +182,38 @@ fun SnakeGame() {
         gameOver = false
     }
 
+    fun goBackToMain() {
+        val intent = Intent(context, MainActivity::class.java)
+        context.startActivity(intent)
+        if (context is ComponentActivity) {
+            context.finish()
+        }
+    }
+
     LaunchedEffect(gameOver) {
         if (gameOver) return@LaunchedEffect
         while (!gameOver) {
             delay(200)
-
             val head = snake.first()
             val newHead = Pair(
                 head.first + direction.first,
                 head.second + direction.second
             )
-
-
             if (snake.contains(newHead)) {
                 gameOver = true
                 break
             }
-
             val ateFood = newHead == food
             snake = listOf(newHead) + if (ateFood) snake else snake.dropLast(1)
-
             if (ateFood) {
                 do {
                     food = randomFood(boardSize)
                 } while (snake.contains(food))
             }
-
             if (newHead.first !in 0 until boardSize || newHead.second !in 0 until boardSize) {
                 gameOver = true
                 break
             }
-
         }
     }
 
@@ -174,15 +221,14 @@ fun SnakeGame() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFCDEAA3)),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "${stringResource(R.string.score)}${snake.size - 1}",
             color = Color(0xFF2F4F2F),
             fontSize = 40.sp,
             modifier = Modifier.padding(top = 16.dp)
-
         )
 
         Spacer(modifier = Modifier.height(25.dp))
@@ -208,8 +254,34 @@ fun SnakeGame() {
     }
 
     if (gameOver) {
-        GameOverDialog(onRestart = {resetGame()})
+        GameOverDialog(
+            onRestart = { resetGame() },
+            onReturnToMain = { goBackToMain() }
+        )
     }
+}
+
+@Composable
+fun GameOverDialog(
+    onRestart: () -> Unit,
+    onReturnToMain: () -> Unit
+) {
+    androidx.compose.material3.AlertDialog(
+        onDismissRequest = { /* Prevent dismiss */ },
+        title = { Text(stringResource(R.string.game_over_title)) },
+        text = { Text(stringResource(R.string.game_over_message)) },
+        confirmButton = {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(onClick = onRestart) {
+                    Text(stringResource(R.string.play_again))
+                }
+                Button(onClick = onReturnToMain) {
+                    Text(stringResource(R.string.return_to_main))
+                }
+            }
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
 }
 
 
@@ -310,19 +382,5 @@ fun randomFood(boardSize: Int): Pair<Int, Int> {
     return Pair(Random.nextInt(boardSize), Random.nextInt(boardSize))
 }
 
-@Composable
-fun GameOverDialog(onRestart: () -> Unit) {
-    androidx.compose.material3.AlertDialog(
-        onDismissRequest = { /* No hacer nada al cerrar */ },
-        title = { Text("Perdiste") },
-        text = { Text("¡Has perdido! Intenta nuevamente.") },
-        confirmButton = {
-            Button(onClick = {
-                onRestart()
-            }) {
-                Text("Volver a jugar")
-            }
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
+
+

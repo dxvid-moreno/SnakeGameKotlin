@@ -6,9 +6,8 @@
     android:background="#C1F0A0"
     android:padding="24dp">
 
-
     <Button
-        android:id="@+id/bntBack"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:text="@string/back"
@@ -31,19 +30,20 @@
         android:textStyle="bold"
         android:textColor="#2B3A1B"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/irish_grover"/>
+        android:layout_below="@id/btnBack"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/irish_grover" />
 
     <TextView
         android:id="@+id/txtAboutUs"
-        android:layout_width="wrap_content"
+        android:layout_width="329dp"
         android:layout_height="wrap_content"
-        android:text="@string/txtAboutUs"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#2B3A1B"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        android:fontFamily="@font/irish_grover"/>
-
+        android:layout_below="@id/txtTitle"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/irish_grover"
+        android:text="@string/txtAboutUs"
+        android:textColor="#2B3A1B"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -25,7 +25,7 @@
 
     <!-- Botón Language -->
     <Button
-        android:id="@+id/iconLanguage"
+        android:id="@+id/btnChangeLanguage"
         android:layout_width="130dp"
         android:layout_height="65dp"
         android:text="@string/language"
@@ -43,7 +43,7 @@
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainSnake"
+        android:text="@string/main_snake"
         android:textSize="60sp"
         android:textStyle="bold"
         android:textColor="#2B3A1B"

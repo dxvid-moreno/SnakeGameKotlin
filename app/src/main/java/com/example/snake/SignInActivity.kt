@@ -23,7 +23,11 @@ class SignInActivity : AppCompatActivity() {
             val account = task.getResult(ApiException::class.java)
             firebaseAuthWithGoogle(account.idToken!!)
         } catch (e: ApiException) {
-            Toast.makeText(this, "Google sign-in failed: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "${getString(R.string.google_sign_in_failed)}: ${e.localizedMessage}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -45,7 +49,7 @@ class SignInActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        val googleButton = findViewById<ImageButton>(R.id.googleSignUpButton)
+        val googleButton = findViewById<ImageButton>(R.id.googleSignInButton)
         googleButton.setOnClickListener {
             signInWithGoogle()
         }
@@ -57,27 +61,27 @@ class SignInActivity : AppCompatActivity() {
         val confirmPassword = findViewById<EditText>(R.id.confirmPasswTxt).text.toString().trim()
 
         if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (password != confirmPassword) {
-            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_password_mismatch), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (password.length < 6) {
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_password_length), Toast.LENGTH_SHORT).show()
             return
         }
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Cuenta creada exitosamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.account_created_success), Toast.LENGTH_SHORT).show()
                     goToMainActivity(email, ProviderType.BASIC)
                 } else {
-                    val error = task.exception?.message ?: "Error al crear la cuenta"
+                    val error = task.exception?.message ?: getString(R.string.account_creation_failed)
                     Toast.makeText(this, error, Toast.LENGTH_LONG).show()
                 }
             }
@@ -97,17 +101,16 @@ class SignInActivity : AppCompatActivity() {
                     val email = auth.currentUser?.email ?: "unknown"
 
                     if (isNewUser) {
-                        Toast.makeText(this, "Cuenta Google registrada correctamente", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.google_account_registered), Toast.LENGTH_SHORT).show()
                         goToMainActivity(email, ProviderType.GOOGLE)
                     } else {
-                        // Usuario ya registrado, cerrar sesión y mostrar error
                         auth.signOut()
                         googleSignInClient.signOut()
-                        Toast.makeText(this, "Esta cuenta ya existe. Por favor inicia sesión.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.google_account_exists), Toast.LENGTH_LONG).show()
                     }
 
                 } else {
-                    Toast.makeText(this, "Falló la autenticación con Google", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.google_auth_failed), Toast.LENGTH_SHORT).show()
                 }
             }
     }

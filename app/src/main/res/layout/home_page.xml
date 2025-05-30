@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C1F0A0"
+    android:padding="24dp">
+
+    <!-- Botón Login -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/login"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentTop="true"
+        android:paddingHorizontal="20dp"
+        android:fontFamily="@font/irish_grover"
+        android:background="@drawable/rounded_button" />
+
+    <!-- Botón Language -->
+    <Button
+        android:id="@+id/btnChangeLanguage"
+        android:layout_width="130dp"
+        android:layout_height="65dp"
+        android:text="@string/language"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/irish_grover"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_snake"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:textColor="#2B3A1B"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:fontFamily="@font/irish_grover"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/txtTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:srcCompat="@drawable/snake_svgrepo_com__1_" />
+
+    <!-- Botón New Game -->
+    <Button
+        android:id="@+id/btnNewGame"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/new_game"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/irish_grover"
+        android:textSize="20sp" />
+
+    <!-- Botón About Us -->
+    <Button
+        android:id="@+id/btnAbout"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/about_us"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/btnNewGame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/irish_grover"
+        android:textSize="20sp" />
+
+    <!-- Botón Log Out -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="LOG OUT"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/btnAbout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/irish_grover"
+        android:textSize="20sp" />
+
+    <!-- Mensaje de bienvenida -->
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/btnLogout"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

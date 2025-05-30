@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Serpiente</string>
+
+    <!-- SignInActivity -->
+    <string name="title_activity_sign_in">Registrarse</string>
+    <string name="prompt_email">Correo electrónico</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar sesión o registrarse</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="invalid_username">Correo electrónico inválido</string>
+    <string name="invalid_password">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="new_google_user_registered">¡Bienvenido! Cuenta de Google registrada exitosamente</string>
+    <string name="login_failed">Error al iniciar sesión</string>
+
+    <!-- LoginActivity -->
+    <string name="login">Iniciar sesión</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="go_to_sign_up">Ir a Registro</string>
+
+    <!-- MainActivity -->
+    <string name="new_game">Nuevo Juego</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="score">Puntuación: </string>
+    <string name="back">Volver</string>
+    <string name="language">Idioma</string>
+    <string name="about_us">Sobre nosotros</string>
+    <string name="txt_about_us">Este es el juego de la Serpiente creado por nuestro equipo.</string>
+    <string name="main_snake">Serpiente</string>
+
+    <!-- Errors and messages -->
+    <string name="error_invalid_email">Correo electrónico inválido</string>
+    <string name="error_invalid_password">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_basic_login">Error al iniciar sesión: %1$s</string>
+    <string name="reset_email_sent">Correo de recuperación enviado</string>
+    <string name="error_reset_email">Error al enviar el correo: %1$s</string>
+    <string name="error_google_account">Error al obtener cuenta de Google: %1$s</string>
+    <string name="error_google_login">Error al iniciar sesión con Google: %1$s</string>
+    <string name="error_default">Ocurrió un error inesperado</string>
+    <string name="error_no_id_token">No se recibió token de autenticación</string>
+
+    <string name="game_over_title">Fin del juego</string>
+    <string name="game_over_message">¡Perdiste! Lo sentimos, sigue mejorando</string>
+    <string name="play_again">Jugar de nuevo</string>
+    <string name="return_to_main">Volver</string>
+
+    <string name="log_tag_login">Inicio de sesión</string>
+    <string name="event_login_screen_shown">pantalla_inicio_sesion_mostrada</string>
+    <string name="google_signin_failed">Error al iniciar sesión con Google</string>
+    <string name="new_user_logged_in_google">Nuevo usuario registrado con Google: %1$s</string>
+    <string name="existing_user_logged_in_google">Usuario existente inició sesión con Google: %1$s</string>
+
+    <string name="error_empty_fields">Por favor completa todos los campos</string>
+    <string name="error_password_mismatch">Las contraseñas no coinciden</string>
+    <string name="error_password_length">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="account_created_success">Cuenta creada exitosamente</string>
+    <string name="account_creation_failed">Error al crear la cuenta</string>
+    <string name="google_sign_in_failed">Error al iniciar sesión con Google</string>
+    <string name="google_account_registered">Cuenta de Google registrada exitosamente</string>
+    <string name="google_account_exists">Esta cuenta ya existe. Por favor inicia sesión.</string>
+    <string name="google_auth_failed">Fallo en la autenticación con Google</string>
+
+    <string name="txtAboutUs">Somos dos amigos, Juan y Daniel, que decidimos crear este juego solo por diversión. ¡Esperamos que lo disfrutes tanto como nosotros al crearlo!</string>
+
+    <!-- Firebase -->
+    <string name="default_web_client_id">422114701306-e70rh8ojjspkm9q6p1o2gll4s533qo0a.apps.googleusercontent.com</string>
+
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="log_in">INICIAR SESIÓN</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="lost_password">¿Olvidaste tu contraseña?</string>
+    <string name="log_in_with">Iniciar sesión con</string>
+    <string name="google_login_desc">Inicio de sesión con Google</string>
+    <string name="create_account">Crea tu cuenta</string>
+    <string name="back_button">Atrás</string>
+
+
+    <!-- Cadenas existentes -->
+    <string name="sign_up_button">Crear cuenta</string>
+    <string name="already_have_account">¿Ya tienes una cuenta?</string>
+    <string name="login_redirect">Iniciar sesión</string>
+
+    <!-- 🔧 Cadenas que causaban errores -->
+    <string name="sign_up_subtitle">Crea una cuenta para jugar</string>
+    <string name="confirm_password_hint">Confirmar contraseña</string>
+    <string name="google_sign_up_desc">Registrarse con Google</string>
+    <string name="snake_logo">Logo de Snake</string>
+
+    <!-- Titles -->
+    <string name="title_login">Iniciar sesión</string>
+    <string name="title_sign_up">Registrarse</string>
+</resources>

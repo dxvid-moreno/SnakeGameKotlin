@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Snake"
         tools:targetApi="31">
+        <activity android:name=".SnakeActivity" />
 
         <!-- Todas las actividades usarán el mismo tema basado en AppCompat -->
         <activity

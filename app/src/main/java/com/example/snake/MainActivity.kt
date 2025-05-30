@@ -27,13 +27,13 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.content.Intent
 import kotlin.jvm.java
-
 import android.widget.TextView
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 import kotlin.math.abs
@@ -52,6 +52,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var btnLogin: Button
     private lateinit var btnAbout: Button
     private lateinit var btnChangeLanguage: Button
+    private lateinit var snakeViewModel: SnakeViewModel
 
     override fun attachBaseContext(newBase: Context) {
         val sharedPreferences = newBase.getSharedPreferences("Settings", Context.MODE_PRIVATE)
@@ -62,6 +63,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        snakeViewModel = ViewModelProvider(this)[SnakeViewModel::class.java]
         setContentView(R.layout.home_page)
 
         val btnChangeLanguage = findViewById<Button>(R.id.btnChangeLanguage)
@@ -148,72 +150,44 @@ class MainActivity : ComponentActivity() {
 
         btnNewGame.setOnClickListener {
             if (auth.currentUser != null) {
-                this.setContent {
-                    SnakeGame()
-                }
+                val intent = Intent(this, SnakeActivity::class.java)
+                startActivity(intent)
             }
         }
+
     }
 
     override fun onPause() {
         super.onPause()
-
+        if (::snakeViewModel.isInitialized) {
+            snakeViewModel.pauseGame()
+        }
     }
 
     override fun onRestart() {
         super.onRestart()
-
+        if (::snakeViewModel.isInitialized) {
+            snakeViewModel.resumeGame()
+        }
     }
+
 }
 
 @Composable
-fun SnakeGame() {
+fun SnakeGame(viewModel: SnakeViewModel = viewModel()) {
     val context = LocalContext.current
+    val snakeVersion by viewModel.snakeVersion
+    val snake = viewModel.snake.toList()
+    val food by viewModel.food
+    val gameOver by viewModel.gameOver
+    val direction by viewModel.direction
     val boardSize = 16
-    var snake by remember { mutableStateOf(listOf(Pair(8, 8))) }
-    var direction by remember { mutableStateOf(Pair(1, 0)) }
-    var food by remember { mutableStateOf(randomFood(boardSize)) }
-    var gameOver by remember { mutableStateOf(false) }
-
-    fun resetGame() {
-        snake = listOf(Pair(8, 8))
-        direction = Pair(1, 0)
-        food = randomFood(boardSize)
-        gameOver = false
-    }
 
     fun goBackToMain() {
         val intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
         if (context is ComponentActivity) {
             context.finish()
-        }
-    }
-
-    LaunchedEffect(gameOver) {
-        if (gameOver) return@LaunchedEffect
-        while (!gameOver) {
-            delay(200)
-            val head = snake.first()
-            val newHead = Pair(
-                head.first + direction.first,
-                head.second + direction.second
-            )
-            if (snake.contains(newHead)) {
-                gameOver = true
-                break
-            }
-            val ateFood = newHead == food
-            snake = listOf(newHead) + if (ateFood) snake else snake.dropLast(1)
-            if (ateFood) {
-                do {
-                    food = randomFood(boardSize)
-                } while (snake.contains(food))
-            }
-            if (newHead.first !in 0 until boardSize || newHead.second !in 0 until boardSize) {
-                gameOver = true
-                break
-            }
         }
     }
 
@@ -244,22 +218,19 @@ fun SnakeGame() {
                 snake = snake,
                 food = food,
                 currentDirection = direction,
-                onDirectionChange = { newDir ->
-                    if (newDir.first + direction.first != 0 || newDir.second + direction.second != 0) {
-                        direction = newDir
-                    }
-                }
+                onDirectionChange = viewModel::changeDirection
             )
         }
     }
 
     if (gameOver) {
         GameOverDialog(
-            onRestart = { resetGame() },
+            onRestart = { viewModel.resetGame() },
             onReturnToMain = { goBackToMain() }
         )
     }
 }
+
 
 @Composable
 fun GameOverDialog(
@@ -376,7 +347,6 @@ fun GestureControlledBoard(
     }
 
 }
-
 
 fun randomFood(boardSize: Int): Pair<Int, Int> {
     return Pair(Random.nextInt(boardSize), Random.nextInt(boardSize))

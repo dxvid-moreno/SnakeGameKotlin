@@ -13,11 +13,17 @@ class SnakeViewModel : ViewModel() {
 
     private val boardSize = 16
     private var gameLoopJob: Job? = null
-
+    var rottenApples = mutableStateListOf<Pair<Int, Int>>()
+        private set
     var snake = mutableStateListOf(Pair(8, 8))
         private set
-
-    var snakeVersion = mutableStateOf(0) // 🔁 Usado para forzar recomposición
+    enum class Difficulty(val speed: Long) {
+        EASY(300),
+        MEDIUM(200),
+        HARD(100)
+    }
+    var difficulty = mutableStateOf(Difficulty.MEDIUM)
+    var snakeVersion = mutableStateOf(0)
 
     var direction = mutableStateOf(Pair(1, 0))
         private set
@@ -55,7 +61,9 @@ class SnakeViewModel : ViewModel() {
         direction.value = Pair(1, 0)
         food.value = randomFood()
         gameOver.value = false
-        snakeVersion.value++ // 🔁 Forzar recomposición
+        rottenApples.clear()
+        generateRottenApples()
+        snakeVersion.value++
         startGameLoop()
     }
 
@@ -78,8 +86,23 @@ class SnakeViewModel : ViewModel() {
                 }
 
                 val ateFood = newHead == food.value
+                val ateRotten = rottenApples.contains(newHead)
+
                 val newSnake = mutableListOf(newHead)
-                newSnake.addAll(if (ateFood) snake else snake.dropLast(1))
+
+                if (ateRotten) {
+                    if (snake.size <= 1) {
+                        gameOver.value = true
+                        break
+                    } else {
+                        newSnake.addAll(snake.dropLast(2))
+                    }
+                } else if (ateFood) {
+                    newSnake.addAll(snake)
+                } else {
+                    newSnake.addAll(snake.dropLast(1))
+                }
+
                 snake.clear()
                 snake.addAll(newSnake)
                 snakeVersion.value++
@@ -87,8 +110,10 @@ class SnakeViewModel : ViewModel() {
                 if (ateFood) {
                     do {
                         food.value = randomFood()
-                    } while (snake.contains(food.value))
+                    } while (snake.contains(food.value) || rottenApples.contains(food.value))
+                    generateRottenApples()
                 }
+
             }
         }
     }
@@ -101,5 +126,21 @@ class SnakeViewModel : ViewModel() {
         super.onCleared()
         gameLoopJob?.cancel()
     }
+
+    private fun generateRottenApples() {
+        if (difficulty.value == Difficulty.EASY) return
+
+        val count = if (difficulty.value == Difficulty.HARD) 2 else 1
+
+        rottenApples.clear()
+        repeat(count) {
+            var pos: Pair<Int, Int>
+            do {
+                pos = randomFood()
+            } while (snake.contains(pos) || pos == food.value || rottenApples.contains(pos))
+            rottenApples.add(pos)
+        }
+    }
+
 }
 

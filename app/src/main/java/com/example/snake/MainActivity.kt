@@ -95,67 +95,31 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        val buttonStart = findViewById<Button>(R.id.btnNewGame)
-        auth = FirebaseAuth.getInstance()
+
+        // Ignora autenticación
         tvWelcome = findViewById(R.id.tvWelcome)
         btnNewGame = findViewById(R.id.btnNewGame)
         btnLogout = findViewById(R.id.btnLogout)
         btnLogin = findViewById(R.id.btnLogin)
         btnAbout = findViewById(R.id.btnAbout)
 
-        val currentUser = auth.currentUser
+        tvWelcome.text = "Testing Mode"
+        tvWelcome.visibility = View.VISIBLE
 
-        if (currentUser != null) {
-            // Usuario autenticado
-            val email = currentUser.email ?: "User"
-            tvWelcome.text = "Welcome, $email"
-            tvWelcome.visibility = View.VISIBLE
+        btnNewGame.isEnabled = true
+        btnNewGame.visibility = View.VISIBLE
 
-            btnNewGame.isEnabled = true
-            btnNewGame.visibility = View.VISIBLE
-
-            btnLogout.visibility = View.VISIBLE
-            btnLogin.visibility = View.GONE
-        } else {
-            // Usuario no autenticado
-            tvWelcome.visibility = View.GONE
-
-            btnNewGame.isEnabled = false
-            btnNewGame.visibility = View.GONE
-
-            btnLogout.visibility = View.GONE
-            btnLogin.visibility = View.VISIBLE
-        }
-
-        btnLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnAbout.setOnClickListener {
-            setContentView(R.layout.about_us)
-            val btnBack = findViewById<Button>(R.id.btnBack)
-            btnBack.setOnClickListener {
-                recreate()
-            }
-        }
-
-
-        btnLogout.setOnClickListener {
-            auth.signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        btnLogout.visibility = View.GONE
+        btnLogin.visibility = View.GONE
 
         btnNewGame.setOnClickListener {
-            if (auth.currentUser != null) {
-                val intent = Intent(this, SnakeActivity::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(this, SnakeActivity::class.java)
+            // Puedes pasar la dificultad directamente si quieres
+            intent.putExtra("difficulty", "HARD")
+            startActivity(intent)
         }
-
     }
+
 
     override fun onPause() {
         super.onPause()
@@ -217,6 +181,7 @@ fun SnakeGame(viewModel: SnakeViewModel = viewModel()) {
                 boardSize = boardSize,
                 snake = snake,
                 food = food,
+                rottenApples = viewModel.rottenApples,
                 currentDirection = direction,
                 onDirectionChange = viewModel::changeDirection
             )
@@ -288,6 +253,7 @@ fun GestureControlledBoard(
     boardSize: Int,
     snake: List<Pair<Int, Int>>,
     food: Pair<Int, Int>,
+    rottenApples: List<Pair<Int, Int>>,
     onDirectionChange: (Pair<Int, Int>) -> Unit,
     currentDirection: Pair<Int, Int>
 ) {
@@ -327,9 +293,11 @@ fun GestureControlledBoard(
                     val pos = Pair(x, y)
                     val color = when {
                         pos == food -> Color.Red
-                        snake.contains(pos) -> Color(0xFF355E3B) // verde militar
-                        else -> Color(0xFFCDEAA3) // fondo claro
+                        rottenApples.contains(pos) -> Color(0xFF8B4513)
+                        snake.contains(pos) -> Color(0xFF355E3B)
+                        else -> Color(0xFFCDEAA3)
                     }
+
 
 
                     Box(

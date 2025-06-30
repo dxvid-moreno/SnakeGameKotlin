@@ -12,6 +12,8 @@ class SnakeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         snakeViewModel = ViewModelProvider(this)[SnakeViewModel::class.java]
+        val difficultyName = intent.getStringExtra("difficulty") ?: "MEDIUM"
+        snakeViewModel.difficulty.value = SnakeViewModel.Difficulty.valueOf(difficultyName)
 
         setContent {
             SnakeGame(viewModel = snakeViewModel)
@@ -32,3 +34,4 @@ class SnakeActivity : ComponentActivity() {
         }
     }
 }
+

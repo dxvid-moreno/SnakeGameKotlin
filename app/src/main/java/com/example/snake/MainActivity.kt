@@ -93,6 +93,69 @@ class MainActivity : ComponentActivity() {
         return context.createConfigurationContext(config)
     }
 
+    /*override fun onStart() {
+        super.onStart()
+        val buttonStart = findViewById<Button>(R.id.btnNewGame)
+        auth = FirebaseAuth.getInstance()
+        tvWelcome = findViewById(R.id.tvWelcome)
+        btnNewGame = findViewById(R.id.btnNewGame)
+        btnLogout = findViewById(R.id.btnLogout)
+        btnLogin = findViewById(R.id.btnLogin)
+        btnAbout = findViewById(R.id.btnAbout)
+
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            // Usuario autenticado
+            val email = currentUser.email ?: "User"
+            tvWelcome.text = "Welcome, $email"
+            tvWelcome.visibility = View.VISIBLE
+
+            btnNewGame.isEnabled = true
+            btnNewGame.visibility = View.VISIBLE
+
+            btnLogout.visibility = View.VISIBLE
+            btnLogin.visibility = View.GONE
+        } else {
+            // Usuario no autenticado
+            tvWelcome.visibility = View.GONE
+
+            btnNewGame.isEnabled = false
+            btnNewGame.visibility = View.GONE
+
+            btnLogout.visibility = View.GONE
+            btnLogin.visibility = View.VISIBLE
+        }
+
+        btnLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnAbout.setOnClickListener {
+            setContentView(R.layout.about_us)
+            val btnBack = findViewById<Button>(R.id.btnBack)
+            btnBack.setOnClickListener {
+                recreate()
+            }
+        }
+
+
+        btnLogout.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        btnNewGame.setOnClickListener {
+            if (auth.currentUser != null) {
+                val intent = Intent(this, SnakeActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }*/
     override fun onStart() {
         super.onStart()
 
@@ -113,10 +176,19 @@ class MainActivity : ComponentActivity() {
         btnLogin.visibility = View.GONE
 
         btnNewGame.setOnClickListener {
-            val intent = Intent(this, SnakeActivity::class.java)
-            // Puedes pasar la dificultad directamente si quieres
-            intent.putExtra("difficulty", "HARD")
-            startActivity(intent)
+            val options = arrayOf("Easy", "Medium", "Hard")
+            val difficulties = arrayOf("EASY", "MEDIUM", "HARD")
+
+            android.app.AlertDialog.Builder(this)
+                .setTitle("Select Difficulty")
+                .setItems(options) { _, which ->
+                    val selectedDifficulty = difficulties[which]
+                    val intent = Intent(this, SnakeActivity::class.java)
+                    intent.putExtra("difficulty", selectedDifficulty)
+                    startActivity(intent)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
     }
 

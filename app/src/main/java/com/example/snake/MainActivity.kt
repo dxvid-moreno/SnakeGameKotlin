@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 import kotlin.math.abs
 import android.app.AlarmManager
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.os.Build
@@ -103,7 +104,7 @@ class MainActivity : ComponentActivity() {
         return context.createConfigurationContext(config)
     }
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         val buttonStart = findViewById<Button>(R.id.btnNewGame)
         auth = FirebaseAuth.getInstance()
@@ -160,46 +161,23 @@ class MainActivity : ComponentActivity() {
 
         btnNewGame.setOnClickListener {
             if (auth.currentUser != null) {
-                val intent = Intent(this, SnakeActivity::class.java)
-                startActivity(intent)
+                val options = arrayOf("Easy", "Medium", "Hard")
+                val difficulties = arrayOf("EASY", "MEDIUM", "HARD")
+
+                android.app.AlertDialog.Builder(this)
+                    .setTitle("Select Difficulty")
+                    .setItems(options) { _, which ->
+                        val selectedDifficulty = difficulties[which]
+                        val intent = Intent(this, SnakeActivity::class.java)
+                        intent.putExtra("difficulty", selectedDifficulty)
+                        startActivity(intent)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
         }
 
-    }*/
-    override fun onStart() {
-        super.onStart()
 
-        // Ignora autenticación
-        tvWelcome = findViewById(R.id.tvWelcome)
-        btnNewGame = findViewById(R.id.btnNewGame)
-        btnLogout = findViewById(R.id.btnLogout)
-        btnLogin = findViewById(R.id.btnLogin)
-        btnAbout = findViewById(R.id.btnAbout)
-
-        tvWelcome.text = "Testing Mode"
-        tvWelcome.visibility = View.VISIBLE
-
-        btnNewGame.isEnabled = true
-        btnNewGame.visibility = View.VISIBLE
-
-        btnLogout.visibility = View.GONE
-        btnLogin.visibility = View.GONE
-
-        btnNewGame.setOnClickListener {
-            val options = arrayOf("Easy", "Medium", "Hard")
-            val difficulties = arrayOf("EASY", "MEDIUM", "HARD")
-
-            android.app.AlertDialog.Builder(this)
-                .setTitle("Select Difficulty")
-                .setItems(options) { _, which ->
-                    val selectedDifficulty = difficulties[which]
-                    val intent = Intent(this, SnakeActivity::class.java)
-                    intent.putExtra("difficulty", selectedDifficulty)
-                    startActivity(intent)
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
-        }
     }
 
 
@@ -323,7 +301,8 @@ fun SnakeGame(viewModel: SnakeViewModel = viewModel()) {
 
     if (gameOver) {
         GameOverDialog(
-            onRestart = { viewModel.resetGame() },
+            onRestart = { uploadScore("Player", snake.size - 1)
+                viewModel.resetGame() },
             onReturnToMain = { goBackToMain() }
         )
     }

@@ -37,6 +37,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 import kotlin.math.abs
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context.ALARM_SERVICE
+import android.os.Build
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import java.util.Calendar
 
 enum class ProviderType{
     BASIC,
@@ -65,7 +72,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         snakeViewModel = ViewModelProvider(this)[SnakeViewModel::class.java]
         setContentView(R.layout.home_page)
-
+        scheduleDailyNotification()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        }
         val btnChangeLanguage = findViewById<Button>(R.id.btnChangeLanguage)
         btnChangeLanguage.setOnClickListener {
             val currentLanguage = getCurrentLanguage()
@@ -206,6 +216,57 @@ class MainActivity : ComponentActivity() {
             snakeViewModel.resumeGame()
         }
     }
+    private fun scheduleDailyNotification() {
+        val intent = Intent(this@MainActivity, GameNotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this@MainActivity, 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = getSystemService(AlarmManager::class.java)
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            //esta para las 8 de la mañana en horario militar
+            set(Calendar.HOUR_OF_DAY, 8)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+
+            // Si ya pasó la hora de hoy, programa para mañana
+            if (timeInMillis <= System.currentTimeMillis()) {
+                add(Calendar.DAY_OF_YEAR, 1)
+            }
+        }
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
+    }
+
+
+    //este sirve al segundo de abrir la aplicacion
+    /*private fun scheduleDailyNotification() {
+        val intent = Intent(this@MainActivity, GameNotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this@MainActivity, 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = getSystemService(AlarmManager::class.java)
+
+        // Prueba en 10 segundos
+        val triggerTime = System.currentTimeMillis() + 1_000L
+
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            triggerTime,
+            pendingIntent
+        )
+    }*/
+
 
 }
 
@@ -391,6 +452,5 @@ fun GestureControlledBoard(
 fun randomFood(boardSize: Int): Pair<Int, Int> {
     return Pair(Random.nextInt(boardSize), Random.nextInt(boardSize))
 }
-
 
 

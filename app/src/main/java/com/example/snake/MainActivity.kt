@@ -309,7 +309,9 @@ fun SnakeGame(viewModel: SnakeViewModel = viewModel()) {
         GameOverDialog(
             onRestart = { uploadScore("Player", snake.size - 1)
                 viewModel.resetGame() },
-            onReturnToMain = { goBackToMain() }
+            onReturnToMain = {
+                uploadScore("Player", snake.size - 1)
+                goBackToMain() }
         )
     }
 }

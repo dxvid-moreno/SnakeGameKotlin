@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
         btnLogout = findViewById(R.id.btnLogout)
         btnLogin = findViewById(R.id.btnLogin)
         btnAbout = findViewById(R.id.btnAbout)
-
+        val btnTopScores = findViewById<Button>(R.id.btnTopScores)
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
@@ -124,6 +124,12 @@ class MainActivity : ComponentActivity() {
 
             btnNewGame.isEnabled = true
             btnNewGame.visibility = View.VISIBLE
+            btnTopScores.visibility = View.VISIBLE
+            btnTopScores.isEnabled = true
+            btnTopScores.setOnClickListener {
+                val intent = Intent(this, ScoreActivity::class.java)
+                startActivity(intent)
+            }
 
             btnLogout.visibility = View.VISIBLE
             btnLogin.visibility = View.GONE
@@ -133,7 +139,7 @@ class MainActivity : ComponentActivity() {
 
             btnNewGame.isEnabled = false
             btnNewGame.visibility = View.GONE
-
+            btnTopScores.visibility = View.GONE
             btnLogout.visibility = View.GONE
             btnLogin.visibility = View.VISIBLE
         }

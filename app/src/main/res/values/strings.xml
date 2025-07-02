@@ -29,6 +29,7 @@
     <string name="about_us">About Us</string>
     <string name="txt_about_us">This is the Snake game created by our team.</string>
     <string name="main_snake">Snake</string>
+    <string name="top_scores">Top scores</string>
 
     <!-- Errors and messages -->
     <string name="error_invalid_email">Invalid email</string>
@@ -93,4 +94,14 @@
     <!-- Titles -->
     <string name="title_login">Log in</string>
     <string name="title_sign_up">Sign up</string>
+
+    <!-- select difficulty -->
+
+        <string name="select_difficulty">Select Difficulty</string>
+        <string name="difficulty_easy">Easy</string>
+        <string name="difficulty_medium">Medium</string>
+        <string name="difficulty_hard">Hard</string>
+        <string name="cancel">Cancel</string>
+
+
 </resources>

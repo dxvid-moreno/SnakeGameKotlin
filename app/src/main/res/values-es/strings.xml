@@ -29,7 +29,7 @@
     <string name="about_us">Sobre nosotros</string>
     <string name="txt_about_us">Este es el juego de la Serpiente creado por nuestro equipo.</string>
     <string name="main_snake">Serpiente</string>
-
+    <string name="top_scores">Puntajes</string>
     <!-- Errors and messages -->
     <string name="error_invalid_email">Correo electrónico inválido</string>
     <string name="error_invalid_password">La contraseña debe tener al menos 6 caracteres</string>
@@ -92,4 +92,14 @@
     <!-- Titles -->
     <string name="title_login">Iniciar sesión</string>
     <string name="title_sign_up">Registrarse</string>
+
+    <!-- select difficulty -->
+
+        <string name="select_difficulty">Selecciona la dificultad</string>
+        <string name="difficulty_easy">Fácil</string>
+        <string name="difficulty_medium">Media</string>
+        <string name="difficulty_hard">Difícil</string>
+        <string name="cancel">Cancelar</string>
+
+
 </resources>

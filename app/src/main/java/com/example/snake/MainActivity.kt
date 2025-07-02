@@ -157,7 +157,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
         btnLogout.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
@@ -167,21 +166,26 @@ class MainActivity : ComponentActivity() {
 
         btnNewGame.setOnClickListener {
             if (auth.currentUser != null) {
-                val options = arrayOf("Easy", "Medium", "Hard")
+                val options = arrayOf(
+                    getString(R.string.difficulty_easy),
+                    getString(R.string.difficulty_medium),
+                    getString(R.string.difficulty_hard)
+                )
                 val difficulties = arrayOf("EASY", "MEDIUM", "HARD")
 
-                android.app.AlertDialog.Builder(this)
-                    .setTitle("Select Difficulty")
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.select_difficulty))
                     .setItems(options) { _, which ->
                         val selectedDifficulty = difficulties[which]
                         val intent = Intent(this, SnakeActivity::class.java)
                         intent.putExtra("difficulty", selectedDifficulty)
                         startActivity(intent)
                     }
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show()
             }
         }
+
 
 
     }

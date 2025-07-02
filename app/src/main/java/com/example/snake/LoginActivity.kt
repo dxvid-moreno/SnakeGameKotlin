@@ -84,7 +84,13 @@ class LoginActivity : AppCompatActivity() {
                     }
             }
         }
-
+        val returnBtn = findViewById<ImageButton>(R.id.returnBtn)
+        returnBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
         resetPassword.setOnClickListener {
             val email = emailField.text.toString().trim()
             if (Validators.isEmailValid(email)) {

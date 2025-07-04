@@ -1,7 +1,6 @@
-package com.example.snake
+package com.example.snake.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.snake.Score
 
 
 fun uploadScore(player: String, score: Int) {

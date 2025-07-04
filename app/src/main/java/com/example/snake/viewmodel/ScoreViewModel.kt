@@ -1,7 +1,7 @@
-package com.example.snake
+package com.example.snake.viewmodel
 
-import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
+import com.example.snake.model.Score
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await

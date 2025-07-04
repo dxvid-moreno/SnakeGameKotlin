@@ -1,4 +1,4 @@
-package com.example.snake
+package com.example.snake.model
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -8,6 +8,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.example.snake.view.MainActivity
 
 class GameNotificationReceiver : BroadcastReceiver() {
 

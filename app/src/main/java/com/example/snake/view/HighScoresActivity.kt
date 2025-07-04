@@ -1,4 +1,4 @@
-package com.example.snake
+package com.example.snake.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.snake.Score
+import com.example.snake.model.Score
+import com.example.snake.model.getTopScores
 
 class HighScoresActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

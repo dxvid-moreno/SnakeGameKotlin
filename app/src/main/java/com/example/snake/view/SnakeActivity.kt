@@ -1,9 +1,10 @@
-package com.example.snake
+package com.example.snake.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
+import com.example.snake.viewmodel.SnakeViewModel
 
 class SnakeActivity : ComponentActivity() {
 

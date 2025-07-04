@@ -1,5 +1,6 @@
 package com.example.snake
 
+import com.example.snake.viewmodel.SnakeViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.After
@@ -76,5 +77,5 @@ class SnakeUnitTest {
         assertEquals(2, viewModel.snake.size)
     }
 
-    
+
 }

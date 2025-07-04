@@ -1,4 +1,4 @@
-package com.example.snake
+package com.example.snake.model
 
 data class Score(
     val player: String = "Anonymous",

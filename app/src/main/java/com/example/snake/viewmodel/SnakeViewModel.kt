@@ -1,4 +1,4 @@
-package com.example.snake
+package com.example.snake.viewmodel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf

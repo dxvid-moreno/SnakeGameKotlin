@@ -1,4 +1,4 @@
-package com.example.snake
+package com.example.snake.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.snake.viewmodel.ScoreViewModel
 
 class ScoreActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

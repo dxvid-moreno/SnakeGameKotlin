@@ -1,10 +1,9 @@
-package com.example.snake
+package com.example.snake.view
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 import kotlin.random.Random
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -22,16 +20,11 @@ import android.widget.Button
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import android.content.Intent
 import kotlin.jvm.java
 import android.widget.TextView
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -40,10 +33,11 @@ import kotlin.math.abs
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.PendingIntent
-import android.content.Context.ALARM_SERVICE
 import android.os.Build
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
+import com.example.snake.model.GameNotificationReceiver
+import com.example.snake.R
+import com.example.snake.viewmodel.SnakeViewModel
+import com.example.snake.model.uploadScore
 import java.util.Calendar
 
 enum class ProviderType{
@@ -215,8 +209,8 @@ class MainActivity : ComponentActivity() {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             //esta para las 8 de la mañana en horario militar
-            set(Calendar.HOUR_OF_DAY, 8)
-            set(Calendar.MINUTE, 0)
+            set(Calendar.HOUR_OF_DAY, 6)
+            set(Calendar.MINUTE, 31)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
 

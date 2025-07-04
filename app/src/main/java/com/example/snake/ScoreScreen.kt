@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Divider
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -24,10 +25,11 @@ import androidx.compose.ui.text.font.FontFamily
 @Composable
 fun ScoreScreen(scoreList: List<Score>, onBack: () -> Unit) {
     val customFont = FontFamily(Font(R.font.irish_grover))
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFCDEAA3)) // Verde claro (puedes cambiar el código si quieres otro tono)
+            .background(Color(0xFFCDEAA3))
     ) {
         Column(
             modifier = Modifier
@@ -36,7 +38,7 @@ fun ScoreScreen(scoreList: List<Score>, onBack: () -> Unit) {
         ) {
             // Título centrado con margen superior
             Text(
-                text = "Top 10 Scores",
+                text = stringResource(R.string.top_scores),
                 fontSize = 30.sp,
                 fontFamily = customFont,
                 style = MaterialTheme.typography.titleLarge,
@@ -83,7 +85,8 @@ fun ScoreScreen(scoreList: List<Score>, onBack: () -> Unit) {
                 ),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Text("Back",fontFamily = customFont,)
+                Text(stringResource(R.string.back),
+                    fontFamily = customFont,)
             }
         }
     }

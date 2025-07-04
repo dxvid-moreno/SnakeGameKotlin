@@ -30,6 +30,8 @@
     <string name="txt_about_us">Este es el juego de la Serpiente creado por nuestro equipo.</string>
     <string name="main_snake">Serpiente</string>
     <string name="top_scores">Puntajes</string>
+    <string name="welcomeMain">Bienvenido, %1$s</string>
+
     <!-- Errors and messages -->
     <string name="error_invalid_email">Correo electrónico inválido</string>
     <string name="error_invalid_password">La contraseña debe tener al menos 6 caracteres</string>

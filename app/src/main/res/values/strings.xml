@@ -30,6 +30,7 @@
     <string name="txt_about_us">This is the Snake game created by our team.</string>
     <string name="main_snake">Snake</string>
     <string name="top_scores">Top scores</string>
+    <string name="welcomeMain">Welcome, %1$s</string>
 
     <!-- Errors and messages -->
     <string name="error_invalid_email">Invalid email</string>

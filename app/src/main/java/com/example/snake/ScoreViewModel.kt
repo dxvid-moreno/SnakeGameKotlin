@@ -36,7 +36,6 @@ class ScoreViewModel : ViewModel() {
                         }
                     )
                 }
-                println("SCORES LOADED: $scores")
                 _scoreList.value = scores
             } catch (e: Exception) {
                 e.printStackTrace()

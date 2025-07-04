@@ -119,7 +119,7 @@ class MainActivity : ComponentActivity() {
         if (currentUser != null) {
             // Usuario autenticado
             val email = currentUser.email ?: "User"
-            tvWelcome.text = "Welcome, $email"
+            tvWelcome.text = getString(R.string.welcomeMain, email)
             tvWelcome.visibility = View.VISIBLE
 
             btnNewGame.isEnabled = true
